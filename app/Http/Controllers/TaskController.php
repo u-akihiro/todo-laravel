@@ -50,6 +50,7 @@ class TaskController extends Controller
         $task->detail = $request->detail;
         $task->user_id = Auth::id();
         $task->save();
+        return redirect('task');
     }
 
     /**
@@ -71,7 +72,8 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::where('id', $id)->where('user_id', Auth::id())->first();
+        return view('task.edit')->with('task', $task);
     }
 
     /**
@@ -83,7 +85,9 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::where('id', $id)->where('user_id', Auth::id())->first();
+        $task->update($request->all());
+        return redirect('task');
     }
 
     /**
@@ -94,6 +98,8 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find($id);
+        $task->delete();
+        return redirect('task');
     }
 }

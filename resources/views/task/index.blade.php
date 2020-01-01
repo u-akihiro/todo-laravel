@@ -11,19 +11,20 @@
                         {{$task->title}}
                     </h5>
                     <p>
-                        {{$task->detail}}
+                        {!! nl2br(e($task->detail)) !!}
                     </p>
                 </div>
                 <div class="card-body">
-                    <div class="btn-group">
+                    <div class="row">
                         <form action="/task/{{$task->id}}" method="POST">
                             @csrf
                             @method('post')
                             <button class="btn btn-primary mr-2" type="submit">完了</button>
                         </form>
+                    <a class="btn btn-primary mr-2" href="task/{{$task->id}}/edit" role="button">編集</a>
                         <form action="/task/{{$task->id}}" method="POST">
                             @csrf
-                            @method('post')
+                            @method('delete')
                             <button class="btn btn-danger" type="submit">削除</button>
                         </form>
                     </div>
